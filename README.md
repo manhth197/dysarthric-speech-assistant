@@ -92,7 +92,7 @@ The system employs a sequential 3-tier pipeline to create a complete end-to-end 
 ##### │   ├── utils.py     # Text normalization and preprocessing utilities
 
 ##### │   ├── dataset.py   # DataLoaders and Log-Mel Spectrogram processing
-│   ├── tts_module.py       # Text-to-Speech integration and audio playback
+##### │   ├── tts_module.py       # Text-to-Speech integration and audio playback
 ##### │   ├── train\_asr.py     # Fine-tuning script for Tier 1 (PhoWhisper)
 
 ##### │   ├── train\_correction.py     # Fine-tuning script for Tier 2 (ViT5)
