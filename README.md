@@ -13,15 +13,11 @@
 
 # 🚀 System Architecture
 
-##### The system employs a sequential pipeline to optimize performance and prevent information overload in a single model:
+The system employs a sequential 3-tier pipeline to create a complete end-to-end communication loop:
 
-##### 
-
-##### Tier 1 - "The Ears" (Acoustic Model): Utilizes a fine-tuned PhoWhisper model. This tier focuses solely on extracting raw phonemes from the audio signal, prioritizing acoustic recognition over grammatical logic.
-
-##### 
-
-##### Tier 2 - "The Brain" (Language Model): Employs ViT5 (Text-to-Text). Acting as a Grammatical Error Correction (GEC) post-processor, it receives the raw, potentially flawed text from Tier 1, infers the context, and corrects it into fluent Vietnamese text.
+* **Tier 1 - "The Ears" (Acoustic Model):** Utilizes a fine-tuned **PhoWhisper** model. This tier focuses solely on extracting raw phonemes from the audio signal, prioritizing acoustic recognition over grammatical logic.
+* **Tier 2 - "The Brain" (Language Model):** Employs **ViT5** (Text-to-Text). Acting as a Grammatical Error Correction (GEC) post-processor, it receives the raw, potentially flawed text from Tier 1, infers the context, and corrects it into fluent Vietnamese text.
+* **Tier 3 - "The Mouth" (Speech Synthesizer):** Integrates a **Vietnamese Text-to-Speech (TTS)** engine. It takes the contextually corrected text from Tier 2 and synthesizes it into clear, natural-sounding audio, completing the communication process for the listener with minimal latency.
 <img width="1919" height="738" alt="Screenshot 2026-03-18 135436" src="https://github.com/user-attachments/assets/5925defd-3b82-49f9-8548-f2c5c7486155" />
 
 # 
@@ -61,7 +57,8 @@
 ##### 
 
 ##### Merged the LoRA weights into the Base Model. Optimized the sequential inference pipeline to achieve a total end-to-end response time of just \~0.2 seconds.
-
+5.  **End-to-End Voice Communication Loop:**
+    * Upgraded the system from a simple transcription tool to a full assistive communication device by integrating a low-latency TTS module, allowing motor-impaired users to effectively and clearly "speak" to others in real-time.
 # 
 
 # 📊 Performance Metrics
@@ -95,7 +92,7 @@
 ##### │   ├── utils.py     # Text normalization and preprocessing utilities
 
 ##### │   ├── dataset.py   # DataLoaders and Log-Mel Spectrogram processing
-
+│   ├── tts_module.py       # Text-to-Speech integration and audio playback
 ##### │   ├── train\_asr.py     # Fine-tuning script for Tier 1 (PhoWhisper)
 
 ##### │   ├── train\_correction.py     # Fine-tuning script for Tier 2 (ViT5)
