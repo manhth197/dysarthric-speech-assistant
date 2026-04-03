@@ -42,7 +42,8 @@ The system employs a sequential 3-tier pipeline to create a complete end-to-end 
 
 ##### Fine-tuned the PhoWhisper model (1.5B parameters) by updating only \~24.5K training parameters (0.0016%). This drastically reduced VRAM requirements while preserving the foundational Vietnamese language knowledge.
 
-##### 
+##### **End-to-End Voice Communication Loop:**
+##### Upgraded the system from a simple transcription tool to a full assistive communication device by integrating a low-latency TTS module, allowing motor-impaired users to effectively and clearly "speak" to others in real-time.
 
 # Automated Synthetic Data Generation Pipeline:
 
@@ -57,8 +58,7 @@ The system employs a sequential 3-tier pipeline to create a complete end-to-end 
 ##### 
 
 ##### Merged the LoRA weights into the Base Model. Optimized the sequential inference pipeline to achieve a total end-to-end response time of just \~0.2 seconds.
-5.  **End-to-End Voice Communication Loop:**
-    * Upgraded the system from a simple transcription tool to a full assistive communication device by integrating a low-latency TTS module, allowing motor-impaired users to effectively and clearly "speak" to others in real-time.
+
 # 
 
 # 📊 Performance Metrics
