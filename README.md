@@ -62,7 +62,7 @@ This makes the solution more useful in real-life interactions such as conversati
 
 ### End-to-End Flow
 
-`Audio Input → PhoWhisper ASR → Raw Transcription → ViT5 Correction → Corrected Text → TTS Output → Clear Speech`
+`Input Voice → PhoWhisper ASR → Raw Transcription → ViT5 Correction → Corrected Text → TTS Output → Clear Speech`
 
 ---
 
