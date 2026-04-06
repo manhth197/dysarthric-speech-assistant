@@ -1,5 +1,11 @@
 ﻿# 🎙️ Dysarthric Speech Assistant: AI-Powered Recognition \& Contextual Correction Pipeline
 ## Built from my own lived experience with cerebral palsy and dysarthria, this project aims to turn AI into a practical communication bridge for people whose voices are often misunderstood.
+
+> A research-driven assistive AI system designed to help people with dysarthria communicate more clearly by combining speech recognition, contextual correction, and speech synthesis in a real-time pipeline.
+
+> **Note:** The source code for this project is currently private. This repository is intended to present the project motivation, system design, methodology, and results.
+
+
 # 📌 About The Project
 <img width="1676" height="580" alt="demo" src="https://github.com/user-attachments/assets/3165fa03-046e-4414-962c-fe38aecdee0d" />
 
