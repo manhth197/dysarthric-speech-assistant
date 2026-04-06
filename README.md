@@ -59,7 +59,8 @@ The purpose of this stage is not only to display corrected text on screen, but a
 the user speaks → the system understands and corrects → the system speaks back clearly to other people.
 
 This makes the solution more useful in real-life interactions such as conversations, school, work, medical settings, or public communication.
-<img width="1676" height="580" alt="Screenshot 2026-03-30 151626" src="https://github.com/user-attachments/assets/e2626690-16d9-4f30-91fa-3616daad00f7" />
+<img width="1651" height="834" alt="Screenshot 2026-04-06 164703" src="https://github.com/user-attachments/assets/1320a22e-d83c-4cbf-8dcd-b8365b6e50c3" />
+
 
 
 ### End-to-End Flow
