@@ -59,6 +59,8 @@ The purpose of this stage is not only to display corrected text on screen, but a
 the user speaks → the system understands and corrects → the system speaks back clearly to other people.
 
 This makes the solution more useful in real-life interactions such as conversations, school, work, medical settings, or public communication.
+<img width="1676" height="580" alt="Screenshot 2026-03-30 151626" src="https://github.com/user-attachments/assets/e2626690-16d9-4f30-91fa-3616daad00f7" />
+
 
 ### End-to-End Flow
 
@@ -153,6 +155,8 @@ This system was not designed only as an academic experiment. It was designed as 
 | Synthetic Correction Dataset Size | **300,000+ sentence pairs** |
 
 These results show that the proposed architecture can significantly improve the usability of dysarthric Vietnamese speech processing while remaining practical for interactive communication support.
+<img width="1903" height="138" alt="Screenshot 2026-03-15 235811" src="https://github.com/user-attachments/assets/98ba4270-c931-41ed-96d4-d77932cc7132" />
+<img width="1459" height="358" alt="Screenshot 2026-03-15 115331" src="https://github.com/user-attachments/assets/ef37788f-18ae-4873-9e7e-c7c3320113e0" />
 
 ---
 
