@@ -1,5 +1,5 @@
 ﻿# 🎙️ Dysarthric Speech Assistant: AI-Powered Recognition \& Contextual Correction Pipeline
-##Built from my own lived experience with cerebral palsy and dysarthria, this project aims to turn AI into a practical communication bridge for people whose voices are often misunderstood.
+## Built from my own lived experience with cerebral palsy and dysarthria, this project aims to turn AI into a practical communication bridge for people whose voices are often misunderstood.
 # 📌 About The Project
 <img width="1676" height="580" alt="demo" src="https://github.com/user-attachments/assets/3165fa03-046e-4414-962c-fe38aecdee0d" />
 
