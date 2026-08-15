@@ -87,7 +87,7 @@ This makes the solution more useful in real-life interactions such as conversati
 ##### │   ├── utils.py     # Text normalization and preprocessing utilities
 
 ##### │   ├── dataset.py   # DataLoaders and Log-Mel Spectrogram processing
-##### │   ├── tts_module.py       # Text-to-Speech integration and audio playback
+##### │   ├── tts_model.py        # Text-to-Speech integration and audio playback
 ##### │   ├── train_asr.py     # Fine-tuning script for Tier 1 (PhoWhisper)
 
 ##### │   ├── train_correction.py     # Fine-tuning script for Tier 2 (ViT5)
@@ -96,7 +96,7 @@ This makes the solution more useful in real-life interactions such as conversati
 
 ##### ├── inference.py            # Integration class for the 2-Tier Pipeline
 
-##### └── app_demo.py             # Gradio web interface for real-time interaction
+##### └── demo.py                 # Gradio web interface for real-time interaction
 
 ## 💡 Key Technical Contributions
 
@@ -114,10 +114,10 @@ Standard ASR models struggle with dysarthric speech because they are trained mos
 This helped the model adapt to atypical speech while preserving its general Vietnamese recognition ability.
 
 ### 3. Parameter-Efficient Fine-Tuning with LoRA
-To reduce training cost, I applied **LoRA (Low-Rank Adaptation)** to a **1.5B-parameter PhoWhisper model**, updating only:
+To reduce training cost, I applied **LoRA (Low-Rank Adaptation)** to the **PhoWhisper-medium model (~769M parameters)**, updating only:
 
-- **~24.5K trainable parameters**
-- **0.0016% of the total model**
+- **~29.9M trainable parameters** (LoRA rank 32)
+- **~3.9% of the total model**
 
 This significantly lowered VRAM and compute requirements while retaining the base model’s language knowledge.
 
@@ -128,13 +128,13 @@ Paired correction data for dysarthric Vietnamese speech is scarce. To overcome t
 - **Athetoid**
 - **Ataxic**
 
-By injecting phonetic and tonal distortions into clean Vietnamese text, I generated **300,000+ synthetic sentence pairs** to train the contextual correction model.
+By injecting phonetic and tonal distortions into clean Vietnamese text, I generated **750,000+ synthetic sentence pairs** to train the contextual correction model.
 
 ### 5. Real-Time Inference Optimization
 To improve responsiveness, I merged LoRA adapters into the base model and optimized the inference flow for practical use.
 
-- **ASR + correction latency:** ~**0.2s per sentence**
-- **Full 3-tier interaction:** designed for **near real-time usage**, depending on the TTS backend
+- **ASR + correction latency:** ~**2.2s per utterance** (greedy decoding, RTX 3070)
+- **Full 3-tier interaction (incl. TTS):** ~**2.6s per utterance** — a few seconds, fast enough for turn-taking communication
 
 ### 6. Accessibility-First Design
 This system was not designed only as an academic experiment. It was designed as an **assistive communication tool**. The architecture prioritizes:
@@ -150,12 +150,16 @@ This system was not designed only as an academic experiment. It was designed as 
 
 | Metric | Result |
 |--------|--------|
-| Validation BLEU Score (Tier 2 - ViT5) | **95.81** |
-| ASR + Correction Inference Time | **~0.5s / sentence** |
-| Baseline Dysarthric Speech Recognition | **WER often > 90%** |
-| Synthetic Correction Dataset Size | **300,000+ sentence pairs** |
+| Tier 2 (ViT5) BLEU — on *synthetic* correction pairs | **~85–96** |
+| Tier 2 (ViT5) BLEU — on *real* held-out ASR errors | **82.5 → 89.0 (+6.5)**, ~31% of errors fixed exactly |
+| Over-correction on already-correct speech | **~3%** (with sanity guard) |
+| Full pipeline latency (warm, RTX 3070) | **~2.6s / utterance** (ASR ~1.5s + GEC ~0.7s + TTS ~0.3s) |
+| Baseline dysarthric ASR (no fine-tuning) | **WER often > 90%** |
+| Synthetic correction dataset | **750,000+ sentence pairs** |
 
-These results show that the proposed architecture can significantly improve the usability of dysarthric Vietnamese speech processing while remaining practical for interactive communication support.
+> **A note on the BLEU numbers, in the spirit of honest reporting.** The high BLEU is measured on *synthetic* correction pairs — where the model is largely undoing the very noise it was trained to reverse — so it overstates real-world gains. On *real*, held-out dysarthric ASR errors the correction gives a smaller but genuine lift (**~+6.5 BLEU**, ~31% of errors fixed exactly), while damaging only ~3% of already-correct sentences. I am hardening the evaluation with leakage-safe, speaker/sentence-disjoint splits so the reported numbers reflect real generalization, not memorized data.
+
+These results show that the proposed architecture can meaningfully improve the usability of dysarthric Vietnamese speech processing — the fine-tuned ASR alone turns near-unusable transcripts (WER > 90%) into workable text — while remaining practical for interactive communication support.
 <img width="1903" height="138" alt="Screenshot 2026-03-15 235811" src="https://github.com/user-attachments/assets/98ba4270-c931-41ed-96d4-d77932cc7132" />
 <img width="1459" height="358" alt="Screenshot 2026-03-15 115331" src="https://github.com/user-attachments/assets/ef37788f-18ae-4873-9e7e-c7c3320113e0" />
 
