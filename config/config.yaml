@@ -1,0 +1,105 @@
+# ===== HARDWARE AUTO-DETECTION =====
+# Server: >10GB VRAM | Laptop: <10GB VRAM or CPU
+hardware:
+  server_mode:
+    batch_size: 4
+    gradient_accumulation_steps: 2
+    use_8bit: false
+    gradient_checkpointing: true
+    fp16: true
+    dataloader_num_workers: 4  #2
+
+  laptop_mode:
+    batch_size: 4
+    gradient_accumulation_steps: 4
+    use_8bit: false
+    gradient_checkpointing: true
+    fp16: true
+    dataloader_num_workers: 4
+
+# ===== ASR MODEL CONFIG =====
+asr:
+  model_name: "vinai/PhoWhisper-medium"
+  output_dir: "./outputs/phowhisper_finetuned_best"
+  num_beams: 1        # inference: 1=greedy (nhanh nhất). Đo test.wav: beam5 cho output Y HỆT beam1 → tăng nếu chất lượng giảm trên input khó.
+  max_length: 225
+
+  # LoRA Configuration
+  lora:
+    r: 32
+    lora_alpha: 256
+    target_modules:
+      - "q_proj"
+      - "v_proj"
+      - "k_proj"
+      - "o_proj"
+      - "fc1"
+      - "fc2"
+    lora_dropout: 0.05882
+    bias: "none"
+    apply_to_encoder: true
+    apply_to_decoder: true
+
+  # Training Hyperparameters
+  training:
+    num_epochs: 5
+    learning_rate: 6.59e-5
+    warmup_ratio: 0.15
+    weight_decay: 0.009538
+    save_steps: 500
+    eval_steps: 500
+    logging_steps: 25
+    save_total_limit: 2
+    load_best_model_at_end: true
+    metric_for_best_model: "wer"
+    greater_is_better: false
+    push_to_hub: false
+    early_stopping_patience: 5
+    label_smoothing_factor: 0.15
+    lr_scheduler_type: "cosine"
+    max_grad_norm: 0.5
+
+# ===== CORRECTION MODEL CONFIG =====
+correction:
+  model_name: "vietai/vit5-base"
+  output_dir: "./outputs/vit5_correction_best"
+  eval_split: 0.05  # tách 10% sampl để đánh giá
+  num_beams: 1      # inference: beam4 cho output y hệt beam1 trên mẫu đo → 1 để nhanh
+  training:
+    batch_size: 16 #8
+    gradient_accumulation_steps: 4 # bổ sung để eff=64
+    num_epochs: 2 #5
+    learning_rate: 5.0e-5
+    warmup_steps: 2000
+    weight_decay: 0.01
+    max_grad_norm: 1.0
+    label_smoothing_factor: 0.1
+    lr_scheduler_type: "cosine"
+    save_steps: 2500
+    eval_steps: 2500
+    logging_steps: 250
+    save_total_limit: 3
+    load_best_model_at_end: true
+    early_stopping_patience: 5
+    bleu_sample_size: 1000
+    report_to: ["tensorboard"]
+    logging_dir: "./logs/vit5_training"    
+
+# ===== DATASET CONFIG =====
+dataset:
+  metadata_path: "./dataset/metadata.csv"
+  audio_dir: "./dataset"
+  train_split: 0.9
+  sample_rate: 16000
+  max_audio_length: 30
+
+# ===== TTS CONFIG =====
+tts:
+  model_name: "facebook/mms-tts-vie"
+  target_sample_rate: 16000   # = native VITS. Trước để 44100 (upsample vô ích, file to 2,6×). 16k plays tốt trên điện thoại.
+
+# ===== VIETNAMESE TEXT NORMALIZATION =====
+vietnamese:
+  normalize_tone: true
+  lowercase: true
+  remove_extra_spaces: true

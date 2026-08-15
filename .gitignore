@@ -1,0 +1,81 @@
+# ============================================================
+# AI4Life — .gitignore (nghiêm: KHÔNG đẩy weights, dữ liệu bệnh nhân, secret)
+# ============================================================
+
+# ── Môi trường Python / cache ──
+venv/
+env/
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.gradio/
+.claude/
+
+# ── Model weights & checkpoints (nặng, KHÔNG public) ──
+outputs/
+checkpoints/
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# ── Dataset & dữ liệu bệnh nhân / audio (NHẠY CẢM — không public) ──
+dataset/
+data/
+*.wav
+*.mp3
+*.flac
+*.ogg
+*.m4a
+correction_data_*.csv
+metadata.csv
+*_real.csv
+
+# ── Secrets / hạ tầng ──
+.env
+.env.*
+*secret*
+*.key
+*.pem
+tunnel_url.txt
+cloudflared.exe
+cloudflared*.exe
+
+# ── Logs / output tạm ──
+*.log
+*.out
+nohup.out
+logs/
+
+# ── File tạm của quá trình tối ưu (throwaway) ──
+_bench_latency.py
+_smoke_*/
+outputs/_smoke_*/
+config/_smoke_*.yaml
+build_log*.txt
+
+# ── Flutter build artifacts ──
+app/build/
+app/.dart_tool/
+app/.gradle/
+app/android/.gradle/
+app/android/local.properties
+*.apk
+*.aab
+
+# ── File thử nghiệm/trùng đã tách (giữ trên đĩa, không public) ──
+_archive/
+
+# ── Tài liệu nội bộ (báo cáo NCKH dự thi... — KHÔNG public; README là bản reviewer đọc) ──
+knowlage/
+*.docx
+
+# ── IDE / OS ──
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
